@@ -3,7 +3,6 @@ package com.example.pas_genap_rizal_23;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -11,9 +10,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.pas_genap_rizal_23.Fragment.leaderboard;
-import com.example.pas_genap_rizal_23.Fragment.profile;
-import com.example.pas_genap_rizal_23.Fragment.teamsFragment;
+import com.example.pas_genap_rizal_23.Fragment.BundesLiga;
+import com.example.pas_genap_rizal_23.Fragment.TeamsFragment;
+import com.example.pas_genap_rizal_23.Fragment.profileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new profile())
+                .replace(R.id.container, new profileFragment())
                 .commit();
     }
 
@@ -45,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     if (item.getItemId() == R.id.Teams) {
-                        selectedFragment = new teamsFragment();
+                        selectedFragment = new TeamsFragment();
                     } else if (item.getItemId() == R.id.leaderboard) {
-                        selectedFragment = new leaderboard();
+                        selectedFragment = new BundesLiga();
                     } else if (item.getItemId() == R.id.Profile) {
-                        selectedFragment = new profile();
+                        selectedFragment = new profileFragment();
                     }
 
                     getSupportFragmentManager().beginTransaction()

@@ -17,7 +17,7 @@ import com.example.pas_genap_rizal_23.loginPage;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class profile extends Fragment{
+public class profileFragment extends Fragment{
 
     TextView tvUsername, tvPassword;
     Button btnLogOut;

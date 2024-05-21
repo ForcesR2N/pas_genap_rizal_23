@@ -25,7 +25,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class teamsFragment extends Fragment {
+public class BundesLiga extends Fragment {
 
     private static final String BASE_URL = "https://www.thesportsdb.com/api/v1/json/3/";
 
@@ -47,7 +47,7 @@ public class teamsFragment extends Fragment {
 
         TeamService teamService = retrofit.create(TeamService.class);
 
-        Call<TeamResponse> call = teamService.getTeams();
+        Call<TeamResponse> call = teamService.getBundesLigahSoccerTeams();
         call.enqueue(new Callback<TeamResponse>() {
             @Override
             public void onResponse(Call<TeamResponse> call, Response<TeamResponse> response) {
