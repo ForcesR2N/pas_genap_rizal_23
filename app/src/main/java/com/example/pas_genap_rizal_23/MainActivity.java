@@ -10,8 +10,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.pas_genap_rizal_23.Fragment.BundesLiga;
-import com.example.pas_genap_rizal_23.Fragment.TeamsFragment;
+import com.example.pas_genap_rizal_23.Fragment.Indonesia_League;
+import com.example.pas_genap_rizal_23.Fragment.English_League;
 import com.example.pas_genap_rizal_23.Fragment.profileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     if (item.getItemId() == R.id.Teams) {
-                        selectedFragment = new TeamsFragment();
+                        selectedFragment = new English_League();
                     } else if (item.getItemId() == R.id.leaderboard) {
-                        selectedFragment = new BundesLiga();
+                        selectedFragment = new Indonesia_League();
                     } else if (item.getItemId() == R.id.Profile) {
                         selectedFragment = new profileFragment();
                     }

@@ -3,61 +3,75 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainHome"
-    android:orientation="vertical"
-    android:background="@color/bluebackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bluebackground"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".profileFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+    <androidx.cardview.widget.CardView
+        android:layout_width="325dp"
+        android:layout_height="350dp"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="4dp">
 
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:src="@drawable/rizzal"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/rizzal" />
 
-            <TextView
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:id="@+id/tvUsername"
-                android:text="Username"
-                android:textSize="20sp"
-                android:gravity="center"/>
-        </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="270dp"
+                    android:layout_height="40dp"
+                    android:background="@color/text_color"
+                    android:gravity="center"
+                    android:text="Username"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:id="@+id/tvPassword"
-                android:text="Password"
-                android:textSize="20sp"
-                android:gravity="center"/>
-        </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="17dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log Out"
-            android:id="@+id/btnLogOut"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tvPassword"
+                    android:layout_width="270dp"
+                    android:layout_height="40dp"
+                    android:background="@color/text_color"
+                    android:gravity="center"
+                    android:text="Password"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </androidx.cardview.widget.CardView>
 
+            <Button
+                android:id="@+id/btnLogOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log Out" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

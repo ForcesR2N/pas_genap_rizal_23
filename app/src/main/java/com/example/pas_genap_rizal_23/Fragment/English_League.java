@@ -25,7 +25,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class TeamsFragment extends Fragment {
+public class English_League extends Fragment {
 
     private static final String BASE_URL = "https://www.thesportsdb.com/api/v1/json/3/";
 
@@ -35,7 +35,7 @@ public class TeamsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_teams_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_english_league, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

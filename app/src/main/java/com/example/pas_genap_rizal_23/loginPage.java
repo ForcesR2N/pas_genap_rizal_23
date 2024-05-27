@@ -43,13 +43,12 @@ public class loginPage extends AppCompatActivity {
             String enteredPassword = txtPassword.getText().toString();
 
             if (enteredUsername.equals("admin") && enteredPassword.equals("admin")) {
-                // Save login information to SharedPreferences
+
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(USERNAME_KEY, enteredUsername);
                 editor.putString(PASSWORD_KEY, enteredPassword);
                 editor.apply();
 
-                // Navigate to MainActivity or any desired fragment
                 Intent intent = new Intent(loginPage.this, MainActivity.class);
                 startActivity(intent);
                 Toast.makeText(loginPage.this, "Login Successfully", Toast.LENGTH_SHORT).show();
