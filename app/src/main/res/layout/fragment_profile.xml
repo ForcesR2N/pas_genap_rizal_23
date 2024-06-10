@@ -5,7 +5,6 @@
     android:id="@+id/mainHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bluebackground"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".profileFragment">
