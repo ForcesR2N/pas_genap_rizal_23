@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtUsername"
-                    android:hint="Enter your name or email"></com.google.android.material.textfield.TextInputEditText>
+                    android:hint="@string/add_username"></com.google.android.material.textfield.TextInputEditText>
 
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.cardview.widget.CardView>
@@ -83,7 +83,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter your password"
+                android:hint="@string/add_password"
                 android:id="@+id/txtPassword"
                 android:inputType="textPassword">
             </com.google.android.material.textfield.TextInputEditText>
