@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!---Login Page -->
+    <string name="header">Selamat Datang Di\nRizzApp!</string>
+    <string name="username">Nama Pengguna</string>
+    <string name="password">Kata Sandi</string>
+    <string name="add_username">Masukkan nama atau email </string>
+    <string name="add_password">Masukkan Kata Sandi</string>
+    <string name="button_login">Masuk</string>
+
+</resources>
