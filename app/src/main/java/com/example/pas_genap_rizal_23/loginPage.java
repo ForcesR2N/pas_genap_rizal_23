@@ -1,12 +1,19 @@
 package com.example.pas_genap_rizal_23;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class loginPage extends AppCompatActivity {
@@ -14,6 +21,11 @@ public class loginPage extends AppCompatActivity {
     EditText txtUsername, txtPassword;
     Button btnLogin;
     SharedPreferences sharedPreferences;
+    TextView language_change, header;
+    boolean lang_selected = true;
+    Context context;
+    Resources resources;
+    private RelativeLayout language_button;
 
     private static final String SHARED_PREFS = "myPrefs";
     private static final String USERNAME_KEY = "username";
@@ -27,6 +39,7 @@ public class loginPage extends AppCompatActivity {
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword = findViewById(R.id.txtPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        language_button = findViewById(R.id.language_button);
 
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
 
@@ -55,6 +68,51 @@ public class loginPage extends AppCompatActivity {
                 finish(); // Finish login activity
             } else {
                 Toast.makeText(loginPage.this, "Login Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Move this setup outside the login button's OnClickListener
+        language_change = findViewById(R.id.change_language);
+        header = findViewById(R.id.header);
+
+        language_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String[] language = {"English", "Indonesia"};
+
+                int checkedItem;
+
+                if (lang_selected) {
+                    checkedItem = 0;
+                } else {
+                    checkedItem = 1;
+                }
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(loginPage.this);
+
+                builder.setTitle("Select a Language")
+                        .setSingleChoiceItems(language, checkedItem, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                language_change.setText(language[which]);
+                                if(language[which].equals("English")) {
+                                    context = LocalHelper.setLocale(loginPage.this, "en");
+                                    resources = context.getResources();
+                                    header.setText(resources.getString(R.string.language));
+                                } else if (language[which].equals("Indonesia")) {
+                                    context = LocalHelper.setLocale(loginPage.this, "in");
+                                    resources = context.getResources();
+                                    header.setText(resources.getString(R.string.language));
+                                }
+                            }
+                        })
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                builder.create().show();
             }
         });
     }
