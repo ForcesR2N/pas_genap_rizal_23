@@ -71,7 +71,6 @@ public class loginPage extends AppCompatActivity {
             }
         });
 
-        // Move this setup outside the login button's OnClickListener
         language_change = findViewById(R.id.change_language);
         header = findViewById(R.id.header);
 
