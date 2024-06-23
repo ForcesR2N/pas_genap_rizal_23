@@ -65,7 +65,7 @@ public class loginPage extends AppCompatActivity {
                 Intent intent = new Intent(loginPage.this, MainActivity.class);
                 startActivity(intent);
                 Toast.makeText(loginPage.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                finish(); // Finish login activity
+                finish();
             } else {
                 Toast.makeText(loginPage.this, "Login Failed", Toast.LENGTH_SHORT).show();
             }
