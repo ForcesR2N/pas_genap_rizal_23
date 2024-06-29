@@ -36,12 +36,19 @@ public class loginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String language = sharedPreferences.getString("language", "en");
+        context = LocalHelper.setLocale(this, language);
+        resources = context.getResources();
+
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword = findViewById(R.id.txtPassword);
         btnLogin = findViewById(R.id.btnLogin);
         language_button = findViewById(R.id.language_button);
+        language_change = findViewById(R.id.change_language);
+        header = findViewById(R.id.header);
 
-        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        updateText();
 
         String username = sharedPreferences.getString(USERNAME_KEY, null);
         String password = sharedPreferences.getString(PASSWORD_KEY, null);
@@ -56,7 +63,6 @@ public class loginPage extends AppCompatActivity {
             String enteredPassword = txtPassword.getText().toString();
 
             if (enteredUsername.equals("admin") && enteredPassword.equals("admin")) {
-
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(USERNAME_KEY, enteredUsername);
                 editor.putString(PASSWORD_KEY, enteredPassword);
@@ -70,9 +76,6 @@ public class loginPage extends AppCompatActivity {
                 Toast.makeText(loginPage.this, "Login Failed", Toast.LENGTH_SHORT).show();
             }
         });
-
-        language_change = findViewById(R.id.change_language);
-        header = findViewById(R.id.header);
 
         language_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,15 +97,19 @@ public class loginPage extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 language_change.setText(language[which]);
-                                if(language[which].equals("English")) {
+                                if (language[which].equals("English")) {
                                     context = LocalHelper.setLocale(loginPage.this, "en");
                                     resources = context.getResources();
-                                    header.setText(resources.getString(R.string.language));
+                                    updateText();
                                 } else if (language[which].equals("Indonesia")) {
                                     context = LocalHelper.setLocale(loginPage.this, "in");
                                     resources = context.getResources();
                                     header.setText(resources.getString(R.string.language));
                                 }
+
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("language", language[which].equals("English") ? "en" : "in");
+                                editor.apply();
                             }
                         })
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -115,4 +122,10 @@ public class loginPage extends AppCompatActivity {
             }
         });
     }
-}
+        private void updateText() {
+            txtUsername.setHint(resources.getString(R.string.username));
+            txtPassword.setHint(resources.getString(R.string.password));
+            btnLogin.setText(resources.getString(R.string.button_login));
+            header.setText(resources.getString(R.string.language));
+        }
+    }
