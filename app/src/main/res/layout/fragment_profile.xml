@@ -41,7 +41,7 @@
                     android:id="@+id/tvUsername"
                     android:layout_width="270dp"
                     android:layout_height="40dp"
-                    android:background="@color/text_color"
+                    android:background="@color/bluebackground"
                     android:gravity="center"
                     android:text="Username"
                     android:textColor="@color/black"
@@ -59,7 +59,7 @@
                     android:id="@+id/tvPassword"
                     android:layout_width="270dp"
                     android:layout_height="40dp"
-                    android:background="@color/text_color"
+                    android:background="@color/bluebackground"
                     android:gravity="center"
                     android:text="Password"
                     android:textColor="@color/black"
@@ -70,6 +70,8 @@
                 android:id="@+id/btnLogOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/accent_color"
                 android:text="Log Out" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
