@@ -38,7 +38,6 @@ public class loginPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Retrieve saved language preference and set the locale
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String language = sharedPreferences.getString(LANGUAGE_KEY, "en");
         context = LocalHelper.setLocale(this, language);
@@ -96,12 +95,10 @@ public class loginPage extends AppCompatActivity {
                         int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
                         String selectedLanguage = selectedPosition == 0 ? "en" : "in";
 
-                        // Save the selected language to SharedPreferences
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(LANGUAGE_KEY, selectedLanguage);
                         editor.apply();
 
-                        // Apply the new locale and update the text
                         context = LocalHelper.setLocale(loginPage.this, selectedLanguage);
                         resources = context.getResources();
                         updateText();
@@ -125,7 +122,6 @@ public class loginPage extends AppCompatActivity {
         language_change.setText(language.equals("en") ? "English" : "Indonesia");
     }
     private void updateTextInputHint(int editTextId, int inputLayoutId, int hintStringId) {
-        TextInputEditText editText = findViewById(editTextId);
         TextInputLayout inputLayout = findViewById(inputLayoutId);
         if(inputLayout != null){
             inputLayout.setHint(resources.getString(hintStringId));
