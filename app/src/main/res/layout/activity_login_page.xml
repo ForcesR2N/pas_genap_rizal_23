@@ -18,18 +18,18 @@
         android:layout_height="100dp"
         android:id="@+id/header"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="65dp"
         android:text="@string/header"
         android:layout_alignParentStart="true"
         android:textColor="@color/black"
-        android:textSize="31sp"
+        android:textSize="36sp"
         android:textStyle="bold" />
 
     <RelativeLayout
-        android:layout_width="105dp"
+        android:layout_width="115dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="10dp"
         android:id="@+id/language_button"
         android:layout_toEndOf="@+id/header"
         android:background="@drawable/shape_button">
@@ -72,7 +72,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-130dp"
+            android:id="@+id/tvUsername"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="start"
             android:layout_marginTop="-20dp"
             android:text="@string/username"
             android:textColor="@color/white"
@@ -90,7 +92,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/NoBorderTextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/txtUsernameLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtUsername"
@@ -104,7 +107,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-130dp"
+            android:id="@+id/tvPassword"
+            android:layout_gravity="start"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:text="@string/password"
             android:textColor="@color/white"
@@ -124,6 +129,7 @@
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:id="@+id/txtPasswordLayout"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText

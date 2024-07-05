@@ -16,17 +16,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 public class loginPage extends AppCompatActivity {
 
     EditText txtUsername, txtPassword;
     Button btnLogin;
     SharedPreferences sharedPreferences;
-    TextView language_change, header;
-    boolean lang_selected = true;
+    TextView language_change, header, tvUsername, tvPassword;
     Context context;
     Resources resources;
-    private RelativeLayout language_button;
 
+    private RelativeLayout language_button;
     private static final String SHARED_PREFS = "myPrefs";
     private static final String USERNAME_KEY = "username";
     private static final String PASSWORD_KEY = "password";
@@ -35,12 +37,14 @@ public class loginPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_page);
 
+        // Retrieve saved language preference and set the locale
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String language = sharedPreferences.getString(LANGUAGE_KEY, "en");
         context = LocalHelper.setLocale(this, language);
         resources = context.getResources();
+
+        setContentView(R.layout.activity_login_page);
 
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword = findViewById(R.id.txtPassword);
@@ -48,6 +52,8 @@ public class loginPage extends AppCompatActivity {
         language_button = findViewById(R.id.language_button);
         language_change = findViewById(R.id.change_language);
         header = findViewById(R.id.header);
+        tvUsername = findViewById(R.id.tvUsername);
+        tvPassword = findViewById(R.id.tvPassword);
 
         updateText();
 
@@ -80,13 +86,15 @@ public class loginPage extends AppCompatActivity {
 
         language_button.setOnClickListener(v -> {
             final String[] languageOptions = {"English", "Indonesia"};
-            int checkedItem = language.equals("en") ? 0 : 1;
+            String currentLanguage = sharedPreferences.getString(LANGUAGE_KEY, "en");
+            int checkedItem = currentLanguage.equals("en") ? 0 : 1;
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(loginPage.this);
             builder.setTitle("Select a Language")
-                    .setSingleChoiceItems(languageOptions, checkedItem, (dialog, which) -> {
-                        String selectedLanguage = which == 0 ? "en" : "in";
-                        language_change.setText(languageOptions[which]);
+                    .setSingleChoiceItems(languageOptions, checkedItem, null)
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+                        String selectedLanguage = selectedPosition == 0 ? "en" : "in";
 
                         // Save the selected language to SharedPreferences
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -97,21 +105,30 @@ public class loginPage extends AppCompatActivity {
                         context = LocalHelper.setLocale(loginPage.this, selectedLanguage);
                         resources = context.getResources();
                         updateText();
-                    })
-                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+                    });
 
             builder.create().show();
         });
     }
 
-        private void updateText() {
-           txtUsername.setHint(resources.getString(R.string.username));
-           txtPassword.setHint(resources.getString(R.string.password));
-           btnLogin.setText(resources.getString(R.string.button_login));
-           language_change.setText(resources.getString(R.string.language));
-           header.setText(resources.getString(R.string.header));
+    private void updateText() {
 
-           String language = sharedPreferences.getString(LANGUAGE_KEY, "en");
-           language_change.setText(language.equals("en") ? "English" : "Indonesia");
+        updateTextInputHint(R.id.txtUsername, R.id.txtUsernameLayout, R.string.add_username);
+        updateTextInputHint(R.id.txtPassword, R.id.txtPasswordLayout, R.string.add_password);
+
+        tvUsername.setText(resources.getString(R.string.username));
+        tvPassword.setText(resources.getString(R.string.password));
+        btnLogin.setText(resources.getString(R.string.button_login));
+        header.setText(resources.getString(R.string.header));
+
+        String language = sharedPreferences.getString(LANGUAGE_KEY, "en");
+        language_change.setText(language.equals("en") ? "English" : "Indonesia");
+    }
+    private void updateTextInputHint(int editTextId, int inputLayoutId, int hintStringId) {
+        TextInputEditText editText = findViewById(editTextId);
+        TextInputLayout inputLayout = findViewById(inputLayoutId);
+        if(inputLayout != null){
+            inputLayout.setHint(resources.getString(hintStringId));
         }
     }
+}
