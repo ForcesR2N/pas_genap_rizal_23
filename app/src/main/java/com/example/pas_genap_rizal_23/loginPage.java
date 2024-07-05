@@ -30,6 +30,7 @@ public class loginPage extends AppCompatActivity {
     private static final String SHARED_PREFS = "myPrefs";
     private static final String USERNAME_KEY = "username";
     private static final String PASSWORD_KEY = "password";
+    private static final String LANGUAGE_KEY = "language";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class loginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        String language = sharedPreferences.getString("language", "en");
+        String language = sharedPreferences.getString(LANGUAGE_KEY, "en");
         context = LocalHelper.setLocale(this, language);
         resources = context.getResources();
 
@@ -77,55 +78,40 @@ public class loginPage extends AppCompatActivity {
             }
         });
 
-        language_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String[] language = {"English", "Indonesia"};
+        language_button.setOnClickListener(v -> {
+            final String[] languageOptions = {"English", "Indonesia"};
+            int checkedItem = language.equals("en") ? 0 : 1;
 
-                int checkedItem;
+            final AlertDialog.Builder builder = new AlertDialog.Builder(loginPage.this);
+            builder.setTitle("Select a Language")
+                    .setSingleChoiceItems(languageOptions, checkedItem, (dialog, which) -> {
+                        String selectedLanguage = which == 0 ? "en" : "in";
+                        language_change.setText(languageOptions[which]);
 
-                if (lang_selected) {
-                    checkedItem = 0;
-                } else {
-                    checkedItem = 1;
-                }
+                        // Save the selected language to SharedPreferences
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(LANGUAGE_KEY, selectedLanguage);
+                        editor.apply();
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(loginPage.this);
+                        // Apply the new locale and update the text
+                        context = LocalHelper.setLocale(loginPage.this, selectedLanguage);
+                        resources = context.getResources();
+                        updateText();
+                    })
+                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
 
-                builder.setTitle("Select a Language")
-                        .setSingleChoiceItems(language, checkedItem, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                language_change.setText(language[which]);
-                                if (language[which].equals("English")) {
-                                    context = LocalHelper.setLocale(loginPage.this, "en");
-                                    resources = context.getResources();
-                                    updateText();
-                                } else if (language[which].equals("Indonesia")) {
-                                    context = LocalHelper.setLocale(loginPage.this, "in");
-                                    resources = context.getResources();
-                                    header.setText(resources.getString(R.string.language));
-                                }
-
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("language", language[which].equals("English") ? "en" : "in");
-                                editor.apply();
-                            }
-                        })
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                builder.create().show();
-            }
+            builder.create().show();
         });
     }
+
         private void updateText() {
-            txtUsername.setHint(resources.getString(R.string.username));
-            txtPassword.setHint(resources.getString(R.string.password));
-            btnLogin.setText(resources.getString(R.string.button_login));
-            header.setText(resources.getString(R.string.language));
+           txtUsername.setHint(resources.getString(R.string.username));
+           txtPassword.setHint(resources.getString(R.string.password));
+           btnLogin.setText(resources.getString(R.string.button_login));
+           language_change.setText(resources.getString(R.string.language));
+           header.setText(resources.getString(R.string.header));
+
+           String language = sharedPreferences.getString(LANGUAGE_KEY, "en");
+           language_change.setText(language.equals("en") ? "English" : "Indonesia");
         }
     }
